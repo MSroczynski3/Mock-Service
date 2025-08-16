@@ -16,8 +16,18 @@ A Spring Boot application for creating and managing HTTP mocks using WireMock an
 ## 📋 Prerequisites
 
 - **Java 24** or higher
+- **Docker Desktop** - Required for running tests (uses Testcontainers for MongoDB)
 - **MongoDB** (optional for basic testing - can be configured later)
 - **Git** for version control
+
+### Docker Setup
+The project uses Testcontainers for integration testing, which requires Docker to be running:
+
+1. **Install Docker Desktop** for your operating system
+2. **Start Docker Desktop** and ensure it's running
+3. **Verify Docker is running**: `docker info` should not show connection errors
+
+⚠️ **Important**: Tests will fail if Docker is not running, as they use MongoDB containers for testing.
 
 ## 🏃‍♂️ Quick Start
 
@@ -98,15 +108,29 @@ The application uses `application.properties` for configuration. Key settings:
 
 ## 🧪 Testing
 
-Run the test suite:
+### Prerequisites for Testing
+⚠️ **Docker must be running** before executing tests, as they use Testcontainers to spin up MongoDB containers.
+
+### Running Tests
 ```bash
+# Ensure Docker Desktop is running first
+docker info
+
+# Run all tests
 ./gradlew test
 ```
 
+### Test Structure
 The project includes:
 - Unit tests for core functionality
 - Integration tests with Testcontainers
-- MongoDB integration testing
+- MongoDB integration testing using Docker containers
+
+### Troubleshooting Tests
+If tests fail with Docker-related errors:
+1. Ensure Docker Desktop is installed and running
+2. Verify Docker connectivity: `docker info`
+3. On Windows: Check that Docker Desktop is using the correct engine (WSL2 or Hyper-V)
 
 ## 🐳 Docker Support
 
@@ -140,6 +164,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Build fails with Java version error:**
 - Ensure Java 24 is installed and `JAVA_HOME` is set correctly
+
+**Tests fail with Docker/Testcontainers errors:**
+- Ensure Docker Desktop is installed and running
+- Run `docker info` to verify Docker connectivity
+- On Windows: Make sure Docker Desktop is using the correct engine
+
+**WireMock HttpServerFactory errors:**
+- This project uses `wiremock-standalone` for better Java 21+ compatibility
+- If you see "Jetty 11 is not present" errors, ensure you're using the standalone version
+- The standalone version includes all necessary HTTP server dependencies
 
 **Application won't start - MongoDB connection error:**
 - MongoDB connection is optional for basic functionality
