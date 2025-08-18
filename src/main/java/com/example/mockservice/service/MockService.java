@@ -35,8 +35,10 @@ public class MockService {
                 )
         );
         
-        // Build the mock URL
-        String mockUrl = "http://localhost:9090" + request.urlPattern();
+        // Build the mock URL using the WireMockServer base URL and a safe, non-regex path
+        String baseUrl = wireMockServer.baseUrl();
+        String safePath = deriveSafePathFromPattern(request.urlPattern());
+        String mockUrl = safePath.isEmpty() ? baseUrl : baseUrl + safePath;
         
         return new MockResponse(
             mockId,
@@ -45,6 +47,36 @@ public class MockService {
         );
     }
     
+    private String deriveSafePathFromPattern(String urlPattern) {
+        if (urlPattern == null || urlPattern.isEmpty()) {
+            return "";
+        }
+        String pattern = urlPattern.startsWith("^") ? urlPattern.substring(1) : urlPattern;
+        StringBuilder safe = new StringBuilder();
+        boolean escaping = false;
+        for (int i = 0; i < pattern.length(); i++) {
+            char ch = pattern.charAt(i);
+            if (escaping) {
+                safe.append(ch);
+                escaping = false;
+                continue;
+            }
+            if (ch == '\\') {
+                escaping = true;
+                continue;
+            }
+            if (".^$|?*+()[]{}".indexOf(ch) >= 0) {
+                break;
+            }
+            safe.append(ch);
+        }
+        String safePath = safe.toString();
+        if (!safePath.isEmpty() && safePath.charAt(0) != '/') {
+            safePath = "/" + safePath;
+        }
+        return safePath;
+    }
+
     private HttpHeaders createHttpHeaders(CreateMockRequest request) {
         List<HttpHeader> headerList = new ArrayList<>();
         

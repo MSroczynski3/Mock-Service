@@ -20,7 +20,7 @@ public class MockController {
             MockResponse response = mockService.createMock(request);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            // Simple error handling - you can enhance this later
+            // TODO: Enhance error handling and logging
             MockResponse errorResponse = new MockResponse(
                 null,
                 "Failed to create mock: " + e.getMessage(),

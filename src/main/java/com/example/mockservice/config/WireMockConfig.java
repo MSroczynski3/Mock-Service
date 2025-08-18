@@ -14,7 +14,7 @@ public class WireMockConfig {
     public WireMockServer wireMockServer() {
         WireMockServer server = new WireMockServer(
             WireMockConfiguration.wireMockConfig()
-                .port(9090)  // Different port from your main app (8080)
+                .port(9090)  // Different port from the main app (8080)
                 .enableBrowserProxying(true)
         );
         server.start();
