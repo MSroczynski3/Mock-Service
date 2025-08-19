@@ -16,18 +16,8 @@ public class MockController {
     
     @PostMapping
     public ResponseEntity<MockResponse> createMock(@RequestBody CreateMockRequest request) {
-        try {
-            MockResponse response = mockService.createMock(request);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            // TODO: Enhance error handling and logging
-            MockResponse errorResponse = new MockResponse(
-                null,
-                "Failed to create mock: " + e.getMessage(),
-                null
-            );
-            return ResponseEntity.badRequest().body(errorResponse);
-        }
+        MockResponse response = mockService.createMock(request);
+        return ResponseEntity.ok(response);
     }
     
     @GetMapping("/health")
