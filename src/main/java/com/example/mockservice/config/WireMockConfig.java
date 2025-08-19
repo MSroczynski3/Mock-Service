@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class WireMockConfig {
     
-    @Bean
+    @Bean(initMethod = "start", destroyMethod = "stop")
     @Primary
     public WireMockServer wireMockServer() {
         WireMockServer server = new WireMockServer(
@@ -17,7 +17,6 @@ public class WireMockConfig {
                 .port(9090)  // Different port from the main app (8080)
                 .enableBrowserProxying(true)
         );
-        server.start();
         return server;
     }
 }
