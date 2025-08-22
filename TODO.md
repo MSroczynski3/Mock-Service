@@ -13,7 +13,6 @@ This is a self-guided learning and implementation plan for building a dynamic mo
 - [ ] Learn basic project structure and `application.yml`
 
 ### 🧠 Milestone 1: Run the app and return a hardcoded mock
-- [ ] Create a simple controller: `GET /hello` → returns `"Hello World"`
 - [ ] Programmatically configure and start WireMock in Spring Boot
 - [ ] Register a mock: `GET /mocked/user` → returns static JSON
 - [ ] Route incoming request `GET /external/user` to this mocked endpoint
