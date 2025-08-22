@@ -2,6 +2,7 @@ package com.example.mockservice.controller;
 
 import com.example.mockservice.dto.CreateMockRequest;
 import com.example.mockservice.dto.MockResponse;
+import com.example.mockservice.dto.MockSummary;
 import com.example.mockservice.service.MockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,11 @@ public class MockController {
     public ResponseEntity<MockResponse> createMock(@RequestBody CreateMockRequest request) {
         MockResponse response = mockService.createMock(request);
         return ResponseEntity.ok(response);
+    }
+    
+    @GetMapping
+    public ResponseEntity<java.util.List<MockSummary>> listMocks() {
+        return ResponseEntity.ok(mockService.listMocks());
     }
     
     @GetMapping("/health")

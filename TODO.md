@@ -58,6 +58,7 @@ This is a self-guided learning and implementation plan for building a dynamic mo
 - [ ] Add `dev` and `test` Spring profiles to control mocking behavior
 - [ ] Add basic error handling for invalid input
 - [ ] Write integration tests using JUnit and MockMvc
+- [ ] Decide how to handle multiple mocks with the same URL pattern
 
 ---
 

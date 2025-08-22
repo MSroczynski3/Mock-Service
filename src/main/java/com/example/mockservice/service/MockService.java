@@ -2,9 +2,11 @@ package com.example.mockservice.service;
 
 import com.example.mockservice.dto.CreateMockRequest;
 import com.example.mockservice.dto.MockResponse;
+import com.example.mockservice.dto.MockSummary;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.http.HttpHeader;
 import com.github.tomakehurst.wiremock.http.HttpHeaders;
+import com.github.tomakehurst.wiremock.stubbing.StubMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,6 +47,21 @@ public class MockService {
             "Mock created successfully for " + request.method() + " " + request.urlPattern(),
             mockUrl
         );
+    }
+    
+    public List<MockSummary> listMocks() {
+        List<MockSummary> summaries = new ArrayList<>();
+        for (StubMapping mapping : wireMockServer.listAllStubMappings().getMappings()) {
+            String id = mapping.getId() != null ? mapping.getId().toString() : null;
+            String method = mapping.getRequest() != null && mapping.getRequest().getMethod() != null
+                    ? mapping.getRequest().getMethod().getName() : null;
+            String urlPattern = mapping.getRequest() != null && mapping.getRequest().getUrlMatcher() != null
+                    ? mapping.getRequest().getUrlMatcher().getExpected() : null;
+            int status = mapping.getResponse() != null
+                    ? mapping.getResponse().getStatus() : 200;
+            summaries.add(new MockSummary(id, method, urlPattern, status));
+        }
+        return summaries;
     }
     
     private String deriveSafePathFromPattern(String urlPattern) {
