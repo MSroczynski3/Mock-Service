@@ -4,6 +4,7 @@ import com.example.mockservice.dto.CreateMockRequest;
 import com.example.mockservice.dto.MockResponse;
 import com.example.mockservice.dto.MockSummary;
 import com.example.mockservice.service.MockService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +23,8 @@ public class MockController {
     }
     
     @GetMapping
-    public ResponseEntity<java.util.List<MockSummary>> listMocks() {
-        java.util.List<MockSummary> mocks = mockService.listMocks();
+    public ResponseEntity<List<MockSummary>> listMocks() {
+        List<MockSummary> mocks = mockService.listMocks();
         if (mocks == null) {
             mocks = java.util.Collections.emptyList();
         }
