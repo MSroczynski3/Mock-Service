@@ -23,7 +23,11 @@ public class MockController {
     
     @GetMapping
     public ResponseEntity<java.util.List<MockSummary>> listMocks() {
-        return ResponseEntity.ok(mockService.listMocks());
+        java.util.List<MockSummary> mocks = mockService.listMocks();
+        if (mocks == null) {
+            mocks = java.util.Collections.emptyList();
+        }
+        return ResponseEntity.ok(mocks);
     }
     
     @GetMapping("/health")
