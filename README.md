@@ -4,9 +4,9 @@ A Spring Boot application for creating and managing HTTP mocks using WireMock an
 
 ## 🚀 Tech Stack
 
-- **Java 24** - Latest Java features and performance improvements
+- **Java 21 (LTS)** - Long-term support Java version with modern features
 - **Spring Boot 3.5.4** - Modern Spring framework with enhanced capabilities
-- **Gradle (Kotlin DSL)** - Type-safe build automation
+- **Gradle 9.0 (Kotlin DSL)** - Type-safe build automation
 - **WireMock 3.13.1** - Powerful HTTP service virtualization
 - **MongoDB** - Flexible document storage for mock configurations
 - **Spring Boot Actuator** - Production-ready monitoring and health checks
@@ -15,10 +15,13 @@ A Spring Boot application for creating and managing HTTP mocks using WireMock an
 
 ## 📋 Prerequisites
 
-- **Java 24** or higher
+- **Java 21 (LTS)** - Required for building and running the application
 - **Docker Desktop** - Required for running tests (uses Testcontainers for MongoDB)
 - **MongoDB** (optional for basic testing - can be configured later)
 - **Git** for version control
+
+### Java Installation
+The project uses Java 21 via Gradle's toolchain feature. Gradle will automatically detect Java 21 if installed. If you have multiple Java versions installed, ensure Java 21 is available in your system PATH or set `JAVA_HOME` to point to your Java 21 installation.
 
 ### Docker Setup
 The project uses Testcontainers for integration testing, which requires Docker to be running:
@@ -163,7 +166,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ### Common Issues
 
 **Build fails with Java version error:**
-- Ensure Java 24 is installed and `JAVA_HOME` is set correctly
+- Ensure Java 21 (LTS) is installed
+- Gradle will automatically use Java 21 for compilation (configured in `build.gradle.kts`)
+- If Java 21 is not detected, verify it's installed and in your system PATH
+- You can check installed Java versions: `java -version`
+- Note: Gradle 9.0 can run with Java 17+ (including Java 25), but the project code requires Java 21
 
 **Tests fail with Docker/Testcontainers errors:**
 - Ensure Docker Desktop is installed and running
