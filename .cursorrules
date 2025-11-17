@@ -1,0 +1,74 @@
+# Mock Service Project Rules
+
+## Project Context
+
+This is a Spring Boot application for creating and managing HTTP mocks using WireMock and MongoDB.
+
+Stack: Java 21 + Spring Boot 3.5.4 + Gradle 9.0 + MongoDB + WireMock + Testcontainers.
+
+## Code Style
+
+- Use Java 21 features where appropriate
+- Follow Spring Boot conventions and best practices
+- Use Lombok to reduce boilerplate
+- Use conventional commits (feat:, fix:, chore:, docs:, test:)
+- Keep commits small and focused (one or two sentences, no bullet lists)
+
+## Architecture Principles
+
+- API: RESTful with proper HTTP status codes
+- Validation: Use Jakarta Bean Validation annotations
+- Database: Spring Data MongoDB for persistence
+- Controllers: Keep controllers thin, business logic in services
+- DTOs: Use separate DTOs for request/response objects
+- Exception Handling: Centralized via GlobalExceptionHandler
+- Dependency Injection: Use Spring's @Autowired or constructor injection
+
+## File Organization
+
+- Controllers in `controller/` package
+- Services in `service/` package
+- DTOs in `dto/` package
+- Configuration in `config/` package
+- Exception handlers in `exception/` package
+- Test files alongside source files or in test package mirroring main structure
+- Use `@SpringBootTest` for integration tests
+- Use `@WebMvcTest` for controller unit tests
+
+## Testing
+
+- Backend: JUnit 5 + Mockito + Spring Boot Test
+- Integration: Testcontainers for MongoDB
+- Use `@Testcontainers` and `@Container` for database tests
+- Test both happy paths and error cases
+- Mock external dependencies (WireMock, external APIs) when needed
+- Keep tests focused and readable
+- Use descriptive test names: `shouldDoXWhenY` or `testMethodName_condition_expectedResult`
+- Write tests for each new feature before committing
+- Run `./gradlew test` to verify all tests pass
+
+## Commit Workflow
+
+1. Make focused changes
+2. Write/update tests for changes
+3. Run `./gradlew test` to ensure tests pass
+4. Run `./gradlew build` to ensure build succeeds
+5. Use conventional commit messages (keep them concise - one or two sentences, no bullet lists)
+6. Update README if adding features or changing prerequisites
+
+## Test Guidelines
+
+- Test happy paths and error cases
+- Mock external dependencies (WireMock instances, external HTTP calls) when needed
+- Use Testcontainers for MongoDB integration tests
+- Keep tests focused and readable
+- Use descriptive test names following naming conventions
+- Ensure Docker is running before running integration tests
+- Test both success and failure scenarios for API endpoints
+
+## API Documentation
+
+- Add JavaDoc comments for all public API methods
+- Document request/response DTOs with clear descriptions
+- Consider adding Swagger/OpenAPI annotations when implementing API documentation
+
