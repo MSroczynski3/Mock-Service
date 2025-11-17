@@ -7,34 +7,36 @@ This is a self-guided learning and implementation plan for building a dynamic mo
 ## 🚀 PHASE 1: Backend Foundation (Spring Boot + WireMock)
 
 ### ✅ Setup
-- [ ] Initialize a Spring Boot project using [https://start.spring.io](https://start.spring.io)
+- [x] Initialize a Spring Boot project using [https://start.spring.io](https://start.spring.io)
   - Add dependencies: `Spring Web`, `Spring Data MongoDB`, `Lombok`, `Spring Boot DevTools`
-- [ ] Add WireMock as a dependency (`wiremock-jre8-standalone`)
-- [ ] Learn basic project structure and `application.yml`
+- [x] Add WireMock as a dependency (`wiremock-standalone` - using standalone version)
+- [x] Learn basic project structure and `application.properties`
 
 ### 🧠 Milestone 1: Run the app and return a hardcoded mock
-- [ ] Programmatically configure and start WireMock in Spring Boot
-- [ ] Register a mock: `GET /mocked/user` → returns static JSON
-- [ ] Route incoming request `GET /external/user` to this mocked endpoint
+- [x] Programmatically configure and start WireMock in Spring Boot (`WireMockConfig.java`)
+- [x] Register a mock: `GET /mocked/user` → returns static JSON
+- [x] Route incoming request `GET /external/user` to this mocked endpoint (`ExternalController.java`)
 
 ---
 
 ## 🗃️ PHASE 2: MongoDB Integration
 
 ### ✅ Setup
+- [x] Spring Data MongoDB dependency added to `build.gradle.kts`
 - [ ] Connect Spring Boot to MongoDB (local or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
-- [ ] Verify connection via `application.yml` and test startup logs
+  - ⚠️ **TODO**: Add MongoDB connection string to `application.properties`
+- [ ] Verify connection via `application.properties` and test startup logs
 
 ### 🧠 Milestone 2: Store and manage mocks from DB
 - [ ] Define a `MockDefinition` Java class with fields:
   - `id`, `serviceId`, `method`, `urlPattern`, `response` (status, body, headers)
 - [ ] Create `MockDefinitionRepository` using `MongoRepository`
-- [ ] Create `MockService` to:
-  - Load mocks from MongoDB on startup
-  - Register mocks dynamically with WireMock
-- [ ] Create REST API:
-  - `GET /mocks` → list all mocks
-  - `POST /mocks` → create a new mock and sync it to WireMock
+- [x] Create `MockService` (exists but currently works with WireMock directly, not MongoDB)
+  - [ ] Load mocks from MongoDB on startup
+  - [x] Register mocks dynamically with WireMock (working, but not persisted)
+- [x] Create REST API:
+  - [x] `GET /api/mocks` → list all mocks (returns WireMock stubs, not DB records)
+  - [x] `POST /api/mocks` → create a new mock and sync it to WireMock (not persisted to DB)
 
 ---
 
@@ -56,8 +58,8 @@ This is a self-guided learning and implementation plan for building a dynamic mo
 
 - [ ] Optional: Dockerize backend + MongoDB using `docker-compose.yml`
 - [ ] Add `dev` and `test` Spring profiles to control mocking behavior
-- [ ] Add basic error handling for invalid input
-- [ ] Write integration tests using JUnit and MockMvc
+- [x] Add basic error handling for invalid input (`GlobalExceptionHandler.java` exists)
+- [x] Write integration tests using JUnit and MockMvc (test files exist: `MockControllerTest.java`, etc.)
 - [ ] Decide how to handle multiple mocks with the same URL pattern
 
 ---
