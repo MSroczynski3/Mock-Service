@@ -79,7 +79,16 @@ Expected response:
 - **Metrics**: `GET /actuator/metrics`
 
 ### Mock Management
-*Coming soon - Mock CRUD operations*
+- **Create Mock**: `POST /api/mocks` - Create a new HTTP mock
+- **List Mocks**: `GET /api/mocks` - List all configured mocks
+- **Mock Health**: `GET /api/mocks/health` - Check mock service health
+
+### External API
+- **Get Mocked User**: `GET /external/user` - Retrieve user data from mocked endpoint
+
+### API Documentation
+- **Swagger UI**: `http://localhost:8080/swagger-ui.html` - Interactive API documentation
+- **OpenAPI JSON**: `http://localhost:8080/v3/api-docs` - OpenAPI 3.0 specification
 
 ## 🏗️ Project Structure
 
@@ -147,7 +156,7 @@ If tests fail with Docker-related errors:
 - [ ] Web UI for mock configuration
 - [ ] Request/Response logging
 - [ ] Mock templates and scenarios
-- [ ] API documentation with Swagger
+- [x] API documentation with Swagger
 
 ## 🤝 Contributing
 
